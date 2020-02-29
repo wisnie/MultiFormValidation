@@ -1,23 +1,27 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 export default class Textarea extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = { value: '' };
-    }
-
     handleChange = (event) => {
-        this.setState({ value: event.target.value }, () => {
-            this.props.handleStatusChange({ [this.props.name]: !!this.state.value });
-        });
+        this.props.onChange(this.props.name, event.target.value);
     };
 
     render() {
         return (
             <label>
-                {this.props.name}
-                <textarea onChange={this.handleChange} value={this.state.value} />
+                <textarea
+                    onChange={this.handleChange}
+                    value={this.props.value}
+                    placeholder={this.props.placeholder}
+                />
             </label>
         );
     }
 }
+
+Textarea.propTypes = {
+    name: PropTypes.string,
+    value: PropTypes.string,
+    placeholder: PropTypes.string,
+    onChange: PropTypes.func
+};

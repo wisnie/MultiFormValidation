@@ -7,25 +7,25 @@ import Confirmation from './Confirmation';
 const NAV_ARRAY = ['Introduction', 'Company', 'Confirmation'];
 
 export default class FormsPanel extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = { activeForm: 0 };
-    }
+    state = {
+        activeForm: 'introduction'
+    };
 
-    handleFormChange = () => {
-        this.setState({ activeForm: this.state.activeForm + 1 });
+    handleFormChange = (value) => {
+        this.setState({ activeForm: value });
     };
 
     render() {
-        const forms = [
-            <IntroductionForm handleFormChange={this.handleFormChange} />,
-            <CompanyInformationForm handleFormChange={this.handleFormChange} />,
-            <Confirmation />
-        ];
         return (
-            <div>
+            <div className="form-panel">
                 <PanelNavigation navArray={NAV_ARRAY} />
-                {forms[this.state.activeForm]}
+                {this.state.activeForm === 'introduction' && (
+                    <IntroductionForm onChange={this.handleFormChange} />
+                )}
+                {this.state.activeForm === 'company' && (
+                    <CompanyInformationForm onChange={this.handleFormChange} />
+                )}
+                {this.state.activeForm === 'confirmation' && <Confirmation />}
             </div>
         );
     }

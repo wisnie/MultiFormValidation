@@ -1,44 +1,51 @@
 import React from 'react';
 import Input from './Input';
 import Textarea from './Textarea';
-import CodeInput from './CodeInput';
 
 export default class CompanyInformationForm extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = { validationStatus: {} };
-    }
-
-    checkFormValidation = () => {
-        const statusObject = this.state.validationStatus;
-
-        if (Object.keys(statusObject).length !== 3) return false;
-
-        for (const property in statusObject) {
-            if (statusObject[property] === false) return false;
-        }
-        return true;
+    state = {
+        companyName: '',
+        companyCode: '',
+        about: ''
     };
 
-    handleValidationStatusChange = (inputStatus) => {
-        this.setState({ validationStatus: { ...this.state.validationStatus, ...inputStatus } });
+    checkCompanyCodeValidation = () => {
+        const companyCodeRegExValidation = /[0-9]{16}/;
+        return companyCodeRegExValidation.test(this.state.companyCode);
+    };
+
+    checkFormValidation = () => {
+        return this.state.companyName && this.state.about && this.checkCompanyCodeValidation();
+    };
+
+    handleInputValueChange = (key, value) => {
+        this.setState({ [key]: value });
     };
 
     handleSubmit = (event) => {
         event.preventDefault();
         if (this.checkFormValidation()) {
-            this.props.handleFormChange();
+            this.props.onChange('confirmation');
         }
     };
 
     render() {
         return (
-            <form onSubmit={this.handleSubmit}>
-                <Input name="Company Name" handleStatusChange={this.handleValidationStatusChange} />
-                <CodeInput handleStatusChange={this.handleValidationStatusChange} />
+            <form onSubmit={this.handleSubmit} className="form">
+                <Input
+                    name="companyName"
+                    description="Company Name"
+                    onChange={this.handleInputValueChange}
+                />
+                <Input
+                    name="companyCode"
+                    description="Company Code (16 numbers)"
+                    onChange={this.handleInputValueChange}
+                />
                 <Textarea
-                    name="What is your buisness about"
-                    handleStatusChange={this.handleValidationStatusChange}
+                    name="about"
+                    placeholder="What is your buisness about..."
+                    onChange={this.handleInputValueChange}
                 />
                 <button type="submit">Submit</button>
             </form>

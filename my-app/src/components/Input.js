@@ -1,23 +1,34 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 export default class Input extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = { value: '' };
-    }
+    static defaultProps = {
+        type: 'text',
+        description: ''
+    };
 
     handleChange = (event) => {
-        this.setState({ value: event.target.value }, () => {
-            this.props.handleStatusChange({ [this.props.name]: !!this.state.value });
-        });
+        this.props.onChange(this.props.name, event.target.value);
     };
 
     render() {
         return (
             <label>
-                {this.props.name}
-                <input onChange={this.handleChange} value={this.state.value} />
+                {this.props.description || this.props.name}
+                <input
+                    type={this.props.type}
+                    onChange={this.handleChange}
+                    value={this.props.value}
+                />
             </label>
         );
     }
 }
+
+Input.propTypes = {
+    name: PropTypes.string,
+    value: PropTypes.string,
+    type: PropTypes.string,
+    description: PropTypes.string,
+    onChange: PropTypes.func
+};
