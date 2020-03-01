@@ -3,29 +3,35 @@ import IntroductionForm from './IntroductionForm';
 import CompanyInformationForm from './CompanyInformationForm';
 import PanelNavigation from './PanelNavigation';
 import Confirmation from './Confirmation';
-
-const NAV_ARRAY = ['Introduction', 'Company', 'Confirmation'];
+import { getFirstSection, getSectionsArray } from './utilities/getSection';
 
 export default class FormsPanel extends React.Component {
     state = {
-        activeForm: 'introduction'
+        activeSection: getFirstSection()
     };
 
     handleFormChange = (value) => {
-        this.setState({ activeForm: value });
+        this.setState({ activeSection: value });
     };
 
     render() {
+        const { activeSection } = this.state;
         return (
             <div className="form-panel">
-                <PanelNavigation navArray={NAV_ARRAY} />
-                {this.state.activeForm === 'introduction' && (
-                    <IntroductionForm onChange={this.handleFormChange} />
+                <PanelNavigation navArray={getSectionsArray()} />
+                {activeSection === 'introduction' && (
+                    <IntroductionForm
+                        onChange={this.handleFormChange}
+                        activeSection={this.state.activeSection}
+                    />
                 )}
-                {this.state.activeForm === 'company' && (
-                    <CompanyInformationForm onChange={this.handleFormChange} />
+                {activeSection === 'company' && (
+                    <CompanyInformationForm
+                        onChange={this.handleFormChange}
+                        activeSection={this.state.activeSection}
+                    />
                 )}
-                {this.state.activeForm === 'confirmation' && <Confirmation />}
+                {activeSection === 'confirmation' && <Confirmation />}
             </div>
         );
     }

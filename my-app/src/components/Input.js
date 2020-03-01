@@ -13,9 +13,10 @@ export default class Input extends React.Component {
 
     render() {
         return (
-            <label>
+            <label className="label">
                 {this.props.description || this.props.name}
                 <input
+                    className="input"
                     type={this.props.type}
                     onChange={this.handleChange}
                     value={this.props.value}

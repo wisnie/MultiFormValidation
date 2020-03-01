@@ -1,5 +1,7 @@
 import React from 'react';
 import Input from './Input';
+import { getNextSection } from './utilities/getSection';
+import { strongPasswordRegEx, emailRegExValidation } from './utilities/regEx';
 
 export default class IntroductionForm extends React.Component {
     state = {
@@ -10,7 +12,6 @@ export default class IntroductionForm extends React.Component {
     };
 
     checkEmailValidation = () => {
-        const emailRegExValidation = /(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9]))\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/;
         return emailRegExValidation.test(this.state.email);
     };
 
@@ -29,12 +30,11 @@ export default class IntroductionForm extends React.Component {
     handleSubmit = (event) => {
         event.preventDefault();
         if (this.checkFormValidation()) {
-            this.props.onChange('company');
+            this.props.onChange(getNextSection(this.props.activeSection));
         }
     };
 
     checkPasswordStrength = (password) => {
-        const strongPasswordRegEx = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
         if (password) {
             return strongPasswordRegEx.test(password) ? 'Password is strong' : 'Password is weak';
         }
@@ -67,8 +67,10 @@ export default class IntroductionForm extends React.Component {
                     description="Password Confirmation"
                     onChange={this.handleInputValueChange}
                 />
-                <p>{this.checkPasswordStrength(this.state.password)}</p>
-                <button type="submit">Submit</button>
+                <p className="paragraph">{this.checkPasswordStrength(this.state.password)}</p>
+                <button type="submit" className="button">
+                    Submit
+                </button>
             </form>
         );
     }

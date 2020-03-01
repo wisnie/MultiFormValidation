@@ -1,6 +1,8 @@
 import React from 'react';
 import Input from './Input';
 import Textarea from './Textarea';
+import { getNextSection } from './utilities/getSection';
+import { companyCodeRegExValidation } from './utilities/regEx';
 
 export default class CompanyInformationForm extends React.Component {
     state = {
@@ -10,7 +12,6 @@ export default class CompanyInformationForm extends React.Component {
     };
 
     checkCompanyCodeValidation = () => {
-        const companyCodeRegExValidation = /[0-9]{16}/;
         return companyCodeRegExValidation.test(this.state.companyCode);
     };
 
@@ -25,7 +26,7 @@ export default class CompanyInformationForm extends React.Component {
     handleSubmit = (event) => {
         event.preventDefault();
         if (this.checkFormValidation()) {
-            this.props.onChange('confirmation');
+            this.props.onChange(getNextSection(this.props.activeSection));
         }
     };
 
@@ -47,7 +48,9 @@ export default class CompanyInformationForm extends React.Component {
                     placeholder="What is your buisness about..."
                     onChange={this.handleInputValueChange}
                 />
-                <button type="submit">Submit</button>
+                <button type="submit" className="button">
+                    Submit
+                </button>
             </form>
         );
     }

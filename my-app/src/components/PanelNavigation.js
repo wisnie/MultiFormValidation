@@ -1,15 +1,15 @@
 import React from 'react';
 
-export default class PanelNavigation extends React.Component {
-    render() {
-        return (
-            <nav className="panel-nav">
-                <ul>
-                    {this.props.navArray.map((navItem, index) => (
-                        <li key={index}>{navItem}</li>
-                    ))}
-                </ul>
-            </nav>
-        );
-    }
+export default function PanelNavigation(props) {
+    return (
+        <nav className="panel-nav">
+            <ul className="panel-nav__list">
+                {props.navArray.map((navItem, index) => (
+                    <li className="panel-nav__item" key={index}>
+                        {navItem}
+                    </li>
+                ))}
+            </ul>
+        </nav>
+    );
 }
