@@ -1,0 +1,151 @@
+*,
+*::after,
+*::before {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.container {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    background-color: #f1f2f6;
+}
+
+.form-panel {
+    width: 100%;
+    max-width: 800px;
+    display: flex;
+    background-color: #fff;
+    overflow: hidden;
+}
+
+.panel-nav {
+    background-color: #ffffff;
+    color: #2f3640;
+}
+
+.panel-nav__list {
+    list-style-type: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.panel-nav__item {
+    margin-top: 0.375em;
+    margin-bottom: 0.375em;
+    font-size: 1em;
+}
+
+.panel-nav__item::first-letter,
+.label::first-letter {
+    text-transform: uppercase;
+}
+
+.form,
+.confirmation {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    background-color: #1e272e;
+}
+
+.confirmation {
+    padding: 1em;
+}
+
+.label {
+    font-size: 1em;
+    color: #f1f2f6;
+    margin: 0.5em;
+    display: flex;
+    flex-direction: column;
+}
+
+.input,
+.textarea {
+    border: none;
+    background-color: #ffffff;
+    padding: 1em;
+    border-radius: 0.5em;
+    width: 100%;
+    max-width: 400px;
+}
+
+.textarea {
+    margin: 0.5em;
+    resize: none;
+}
+
+.button {
+    width: 120px;
+    height: 50px;
+    background-color: #3742fa;
+    color: #ffffff;
+    border-radius: 0.5em;
+    border: 0;
+    align-self: flex-end;
+    margin: 0.5em;
+    cursor: pointer;
+}
+
+.paragraph {
+    margin: 0.5em;
+    color: #70a1ff;
+}
+
+.confirmation__title {
+    font-size: 1.25em;
+    text-align: center;
+    color: #ffffff;
+    margin: 0.25em;
+}
+
+.confirmation__description {
+    font-size: 0.9em;
+    color: #f1f2f6;
+}
+
+@media (min-width: 0px) {
+    .container {
+        align-items: flex-start;
+    }
+
+    .form-panel {
+        flex-direction: column;
+    }
+
+    .panel-nav {
+        padding: 0.5em;
+    }
+
+    .form {
+        padding: 1em;
+    }
+}
+
+@media (min-width: 450px) {
+    .button {
+        align-self: center;
+    }
+
+    .form-panel {
+        flex-direction: row;
+        border-radius: 1em;
+    }
+
+    .panel-nav__list {
+        align-items: center;
+        height: 100%;
+        justify-content: space-evenly;
+    }
+}
+
+@media (min-width: 750px) {
+    .container {
+        align-items: center;
+    }
+}
